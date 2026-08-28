@@ -30,6 +30,15 @@ namespace ConsoleApp12
             foreach (Product product in products) Result.Add( transform(product));
             return Result;
         }
+        public static List<Product> Filterproducts(List<Product> products, Predicate<Product> filter)
+        {
+            List<Product > Result = new List<Product>();
+            foreach(Product product in products)
+            {
+                if(filter(product)) Result.Add(product);
+            }
+            return Result;
+        }
         static void Main(string[] args)
         {
             List<Product> Catalog = new()
@@ -69,6 +78,11 @@ namespace ConsoleApp12
             List<string> Pricelable = TransformProduct(Catalog, product => product.Price>100 ? $"  {product.Name}-Expensive" : $"{product.Name}-Affordable");
             Console.WriteLine("---------------------Pricelable--------------------------");
             foreach (string s in Pricelable) Console.WriteLine(s);
+            #endregion
+            #region task3.3
+            Console.WriteLine("--------------------Low Stock Alert---------------------------");
+            List<Product> lowstock = Filterproducts(Catalog, product => product.Stock < 20);
+            foreach (Product product in lowstock) Console.WriteLine($"[LOW STOCK]{product.Name}:ONLY {product.Stock}$ Left!");
             #endregion
         }
 
