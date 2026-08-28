@@ -1,4 +1,6 @@
-﻿using System.Runtime.Intrinsics.X86;
+﻿using System.Collections;
+using System.Runtime.Intrinsics.X86;
+using System.Xml.Linq;
 
 namespace ConsoleApp12
 {
@@ -17,6 +19,10 @@ namespace ConsoleApp12
 
             }
             return Result;
+        }
+        public static void Printreport(List<Product> products,Action<Product> print)
+        {
+            foreach(Product product in products) print(product);
         }
             static void Main(string[] args)
             {
@@ -41,6 +47,13 @@ namespace ConsoleApp12
             foreach (Product product in l2) Console.WriteLine(product);
             Console.WriteLine("--------------------Clothing under 50---------------------------");
             foreach (Product product in l3) Console.WriteLine(product);
+            #endregion
+            #region task3.1
+            Console.WriteLine("--------------------Short report---------------------------");
+            Printreport(Catalog,product=>Console.WriteLine($"{product.Name}-{product.Price}$"));
+            Console.WriteLine("--------------------detaild report---------------------------");
+            Printreport(Catalog, product => Console.WriteLine($"[{product.Category}]{product.Name}-|price ${product.Price}| Stock{product.Stock}"));
+
             #endregion
 
         }
